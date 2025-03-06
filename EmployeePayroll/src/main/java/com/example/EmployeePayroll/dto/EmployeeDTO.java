@@ -7,11 +7,11 @@ public class EmployeeDTO {
 
     Long id;
 
-    public EmployeeDTO(String name, Long salary) {
+    public EmployeeDTO(String name, Long salary, Long id) {
         this.name = name;
         this.salary = salary;
 
-        this.id = null;
+        this.id = id;
     }
 
     public void setName(String name) {

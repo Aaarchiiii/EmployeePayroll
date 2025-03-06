@@ -5,11 +5,12 @@ import com.example.EmployeePayroll.dto.EmployeeDTO;
 import com.example.EmployeePayroll.entities.EmployeeEntity;
 import com.example.EmployeePayroll.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
+import com.example.EmployeePayroll.model.Employee;
 
 @Service
 public class EmployeeService {
 
-    EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -19,24 +20,28 @@ public class EmployeeService {
 
         EmployeeEntity empFound = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find Employee with given id"));
 
-        EmployeeDTO empDto = new EmployeeDTO(empFound.getName(), empFound.getSalary());
-        empDto.setId(empFound.getId());
+//        EmployeeDTO empDto = new EmployeeDTO(empFound.getName(), empFound.getSalary());
+//        empDto.setId(empFound.getId());
+        Employee employee = new Employee(empFound.getId(), empFound.getName(), empFound.getSalary());
+        return employee.toDTO();
 
-        return empDto;
+//        return empDto;
 
     }
 
     public EmployeeDTO create(EmployeeDTO newEmp){
+        Employee employee = new Employee(newEmp);
 
-        EmployeeEntity newEntity = new EmployeeEntity(newEmp.getName(), newEmp.getSalary());
+        EmployeeEntity newEntity = new EmployeeEntity(employee.getName(), employee.getSalary());
 
         employeeRepository.save(newEntity);
 
-        EmployeeDTO emp = new EmployeeDTO(newEntity.getName(), newEntity.getSalary());
+//        EmployeeDTO emp = new EmployeeDTO(newEntity.getName(), newEntity.getSalary());
 
-        emp.setId(newEntity.getId());
+        employee.setId(newEntity.getId());
 
-        return emp;
+//        return emp;
+        return employee.toDTO();
     }
 
     public EmployeeDTO edit(EmployeeDTO emp, Long id){
@@ -51,11 +56,13 @@ public class EmployeeService {
         employeeRepository.save(foundEmp);
 
         //creating dto to return
-        EmployeeDTO employeeDTO = new EmployeeDTO(foundEmp.getName(), foundEmp.getSalary());
-        employeeDTO.setId(foundEmp.getId());
-
-
-        return employeeDTO;
+//        EmployeeDTO employeeDTO = new EmployeeDTO(foundEmp.getName(), foundEmp.getSalary());
+//        employeeDTO.setId(foundEmp.getId());
+//
+//
+//        return employeeDTO;
+        Employee employee = new Employee(foundEmp.getId(), foundEmp.getName(), foundEmp.getSalary());
+        return employee.toDTO();
 
     }
 
