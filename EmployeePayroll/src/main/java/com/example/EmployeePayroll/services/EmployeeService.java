@@ -4,17 +4,19 @@ import com.example.EmployeePayroll.controller.EmployeeController;
 import com.example.EmployeePayroll.dto.EmployeeDTO;
 import com.example.EmployeePayroll.entities.EmployeeEntity;
 import com.example.EmployeePayroll.repositories.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.EmployeePayroll.model.Employee;
 
 @Service
 public class EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+//    public EmployeeService(EmployeeRepository employeeRepository) {
+//        this.employeeRepository = employeeRepository;
+//    }
 
     public EmployeeDTO get(Long id){
 
@@ -34,11 +36,11 @@ public class EmployeeService {
 
         EmployeeEntity newEntity = new EmployeeEntity(employee.getName(), employee.getSalary());
 
-        employeeRepository.save(newEntity);
+//        employeeRepository.save(newEntity);
 
 //        EmployeeDTO emp = new EmployeeDTO(newEntity.getName(), newEntity.getSalary());
-
-        employee.setId(newEntity.getId());
+        EmployeeEntity savedEntity = employeeRepository.save(newEntity);
+        employee.setId(savedEntity.getId());
 
 //        return emp;
         return employee.toDTO();
