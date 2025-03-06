@@ -5,6 +5,8 @@ import com.example.EmployeePayroll.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeeController {
@@ -21,6 +23,11 @@ public class EmployeeController {
     @GetMapping("/get/{id}")
     public EmployeeDTO get(@PathVariable Long id){
         return employeeService.get(id);
+    }
+
+    @GetMapping("/all")  // ✅ New API to Fetch All Employees
+    public List<EmployeeDTO> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping("/create")
