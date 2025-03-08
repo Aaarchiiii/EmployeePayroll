@@ -13,7 +13,7 @@ public class EmployeeController {
 
     @Autowired
 
-    private EmployeeService employeeService;
+     EmployeeService employeeService;
 
 //    public EmployeeController(EmployeeService employeeService) {
 //        this.employeeService = employeeService;

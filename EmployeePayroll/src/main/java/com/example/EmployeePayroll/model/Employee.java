@@ -14,11 +14,13 @@ public class Employee {
     private Long salary;
 
     public Employee(EmployeeDTO dto) {
+        this.id = dto.getId();
         this.name = dto.getName();
         this.salary = dto.getSalary();
     }
 
     public EmployeeDTO toDTO() {
-        return new EmployeeDTO(name, salary, id);
+
+        return new EmployeeDTO(id, name, salary);
     }
 }
